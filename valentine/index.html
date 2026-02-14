@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You | My Valentine</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #ff3366, #ff6b6b);
+            border-radius: 10px;
+        }
+
+        /* Animated Background */
+        .heart-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .heart-bg span {
+            position: absolute;
+            bottom: -50px;
+            background: rgba(255, 51, 102, 0.1);
+            border-radius: 50%;
+            pointer-events: none;
+            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5);
+            animation: animateHeart 10s linear infinite;
+        }
+
+        @keyframes animateHeart {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 51, 102, 0.2);
+        }
+
+        .logo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            background: linear-gradient(45deg, #ff3366, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #ff3366, #ff6b6b);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::before {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: #ff3366;
+        }
+
+        /* Hero Section - Sampul Surat */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 2rem;
+        }
+
+        .envelope {
+            width: 100%;
+            max-width: 600px;
+            cursor: pointer;
+            perspective: 1000px;
+        }
+
+        .envelope-front {
+            background: linear-gradient(145deg, #1a1a1a, #111);
+            border-radius: 30px;
+            padding: 4rem 3rem;
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.5),
+                0 0 0 2px rgba(255, 51, 102, 0.3),
+                0 0 30px rgba(255, 51, 102, 0.3);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 51, 102, 0.3);
+            text-align: center;
+        }
+
+        .envelope-front:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 
+                0 40px 80px rgba(255, 51, 102, 0.4),
+                0 0 0 2px rgba(255, 51, 102, 0.5),
+                0 0 50px rgba(255, 51, 102, 0.4);
+        }
+
+        .envelope-front::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: linear-gradient(90deg, #ff3366, #ff6b6b, #ffa5a5, #ff6b6b, #ff3366);
+            background-size: 200% 100%;
+            animation: gradientMove 3s linear infinite;
+        }
+
+        .envelope-seal {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, #ff3366, #ff6b6b);
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            box-shadow: 0 10px 30px rgba(255, 51, 102, 0.5);
+            animation: sealPulse 2s ease-in-out infinite;
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes sealPulse {
+            0%, 100% { 
+                box-shadow: 0 10px 30px rgba(255, 51, 102, 0.5);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 20px 50px rgba(255, 51, 102, 0.8);
+                transform: scale(1.05);
+            }
+        }
+
+        .envelope-front h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff, #ffb6c1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .envelope-front p {
+            color: #b0b0b0;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .open-text {
+            display: inline-block;
+            background: rgba(255, 51, 102, 0.2);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            color: #ff3366;
+            font-weight: 600;
+            border: 1px solid rgba(255, 51, 102, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .envelope-front:hover .open-text {
+            background: #ff3366;
+            color: white;
+            box-shadow: 0 10px 25px rgba(255, 51, 102, 0.4);
+        }
+
+        /* Surat yang muncul setelah diklik */
+        .letter-content-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .letter-content-overlay.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .letter-card {
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            background: linear-gradient(145deg, #1f1f1f, #151515);
+            border-radius: 40px;
+            padding: 3.5rem;
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.7),
+                0 0 0 1px rgba(255, 51, 102, 0.3),
+                0 0 50px rgba(255, 51, 102, 0.3);
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 51, 102, 0.3);
+        }
+
+        .letter-card.show {
+            transform: scale(1);
+        }
+
+        .close-button {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 51, 102, 0.2);
+            border: 1px solid rgba(255, 51, 102, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #ff3366;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .close-button:hover {
+            background: #ff3366;
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .letter-date {
+            font-family: 'Playfair Display', serif;
+            color: #ff3366;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        .letter-greeting {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff, #ffb6c1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .letter-body {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            color: #e0e0e0;
+            margin-bottom: 2.5rem;
+            position: relative;
+            z-index: 1;
+            text-align: justify;
+        }
+
+        .letter-body p {
+            margin-bottom: 1.5rem;
+        }
+
+        .letter-body p:first-child::first-letter {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            float: left;
+            padding-right: 0.5rem;
+            line-height: 1;
+            color: #ff3366;
+            font-weight: 700;
+        }
+
+        .letter-signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: #ff3366;
+            text-align: right;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 51, 102, 0.2);
+        }
+
+        /* Photo Timeline */
+        .timeline {
+            padding: 5rem 5%;
+            background: #111;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-title h2 span {
+            font-family: 'Dancing Script', cursive;
+            background: linear-gradient(45deg, #ff3366, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-title p {
+            color: #b0b0b0;
+            font-size: 1.1rem;
+        }
+
+        .timeline-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .timeline-card {
+            background: #1a1a1a;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 51, 102, 0.1);
+            position: relative;
+        }
+
+        .timeline-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(255, 51, 102, 0.2);
+            border-color: #ff3366;
+        }
+
+        .card-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .timeline-card:hover .card-image img {
+            transform: scale(1.1);
+        }
+
+        .card-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to top, #1a1a1a, transparent);
+        }
+
+        .card-content {
+            padding: 2rem;
+            position: relative;
+        }
+
+        .card-date {
+            position: absolute;
+            top: -30px;
+            right: 20px;
+            background: linear-gradient(45deg, #ff3366, #ff6b6b);
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 10px 20px rgba(255, 51, 102, 0.3);
+        }
+
+        .card-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .card-content p {
+            color: #b0b0b0;
+            line-height: 1.8;
+        }
+
+        /* Love Letter Section */
+        .love-letter {
+            padding: 5rem 5%;
+            background: #0a0a0a;
+        }
+
+        .letter-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #1a1a1a, #111);
+            border-radius: 30px;
+            padding: 4rem;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 51, 102, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .letter-container::before {
+            content: '❤️';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            font-size: 8rem;
+            opacity: 0.05;
+            transform: rotate(15deg);
+        }
+
+        .letter-container::after {
+            content: '❤️';
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            font-size: 8rem;
+            opacity: 0.05;
+            transform: rotate(-15deg);
+        }
+
+        .letter-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .letter-header h3 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            background: linear-gradient(45deg, #ff3366, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .letter-content {
+            font-size: 1.2rem;
+            line-height: 2;
+            color: #d0d0d0;
+            margin-bottom: 2rem;
+            text-align: justify;
+        }
+
+        .letter-signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: #ff3366;
+            text-align: right;
+            margin-top: 2rem;
+            position: relative;
+        }
+
+        .letter-signature::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #ff3366, transparent);
+        }
+
+        /* Love Meter */
+        .love-meter {
+            padding: 5rem 5%;
+            background: #111;
+            text-align: center;
+        }
+
+        .meter-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .meter-bar {
+            width: 100%;
+            height: 40px;
+            background: #2a2a2a;
+            border-radius: 50px;
+            overflow: hidden;
+            margin: 2rem 0;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .meter-fill {
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(90deg, #ff3366, #ff6b6b, #ffa5a5, #ff6b6b, #ff3366);
+            background-size: 200% 100%;
+            animation: gradientMove 3s linear infinite;
+            border-radius: 50px;
+            position: relative;
+            box-shadow: 0 0 20px #ff3366;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .meter-text {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .meter-text span {
+            background: linear-gradient(45deg, #ff3366, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Reasons Section */
+        .reasons {
+            padding: 5rem 5%;
+            background: #0a0a0a;
+            position: relative;
+        }
+
+        .reasons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .reason-card {
+            background: linear-gradient(135deg, #1a1a1a, #111);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 51, 102, 0.1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            animation: cardAppear 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .reason-card:nth-child(1) { animation-delay: 0.1s; }
+        .reason-card:nth-child(2) { animation-delay: 0.2s; }
+        .reason-card:nth-child(3) { animation-delay: 0.3s; }
+        .reason-card:nth-child(4) { animation-delay: 0.4s; }
+        .reason-card:nth-child(5) { animation-delay: 0.5s; }
+        .reason-card:nth-child(6) { animation-delay: 0.6s; }
+        .reason-card:nth-child(7) { animation-delay: 0.7s; }
+        .reason-card:nth-child(8) { animation-delay: 0.8s; }
+        .reason-card:nth-child(9) { animation-delay: 0.9s; }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .reason-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 51, 102, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .reason-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .reason-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #ff3366;
+            box-shadow: 
+                0 20px 40px rgba(255, 51, 102, 0.2),
+                0 0 0 2px rgba(255, 51, 102, 0.1);
+        }
+
+        .reason-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            background: rgba(255, 51, 102, 0.1);
+            width: 70px;
+            height: 70px;
+            line-height: 70px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            color: #ff3366;
+        }
+
+        .reason-card:hover .reason-icon {
+            background: #ff3366;
+            color: #fff;
+            transform: rotate(360deg);
+            box-shadow: 0 0 30px #ff3366;
+        }
+
+        .reason-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            font-weight: 600;
+            position: relative;
+            display: inline-block;
+        }
+
+        .reason-card h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #ff3366, #ff6b6b);
+            transition: width 0.3s ease;
+        }
+
+        .reason-card:hover h3::after {
+            width: 50%;
+        }
+
+        .reason-card p {
+            color: #b0b0b0;
+            line-height: 1.6;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .reason-card:hover p {
+            color: #d0d0d0;
+        }
+
+        .reason-card::after {
+            content: '❤️';
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            font-size: 4rem;
+            opacity: 0;
+            transform: rotate(15deg);
+            transition: all 0.5s ease;
+        }
+
+        .reason-card:hover::after {
+            opacity: 0.1;
+            bottom: 10px;
+            right: 10px;
+        }
+
+        /* Surprise Section - Update dengan Tombol Yes */
+        .surprise {
+            padding: 5rem 5%;
+            background: linear-gradient(135deg, #1a1a1a, #111);
+            text-align: center;
+        }
+
+        .surprise-box {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #0a0a0a;
+            padding: 3rem;
+            border-radius: 30px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 51, 102, 0.2);
+        }
+
+        .surprise-box h3 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ff3366, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .surprise-box p {
+            color: #b0b0b0;
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+        }
+
+        .question-text {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #fff;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .yes-button {
+            background: linear-gradient(45deg, #ff3366, #ff6b6b);
+            border: none;
+            color: white;
+            padding: 1.5rem 4rem;
+            border-radius: 50px;
+            font-size: 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(255, 51, 102, 0.3);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .yes-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 20px 40px rgba(255, 51, 102, 0.6);
+        }
+
+        .yes-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shine 2s infinite;
+        }
+
+        .music-player {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: rgba(255, 51, 102, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 51, 102, 0.3);
+            display: none;
+        }
+
+        .music-player.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .music-player h4 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #ff3366;
+        }
+
+        .music-player p {
+            margin-bottom: 1.5rem;
+            color: #fff;
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        audio::-webkit-media-controls-panel {
+            background: linear-gradient(45deg, #ff3366, #ff6b6b);
+        }
+
+        audio::-webkit-media-controls-play-button {
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        audio::-webkit-media-controls-timeline {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0a0a;
+            padding: 3rem 5%;
+            text-align: center;
+            border-top: 1px solid rgba(255, 51, 102, 0.2);
+        }
+
+        .footer-heart {
+            font-size: 2rem;
+            animation: heartbeat 1.5s ease infinite;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .footer-text {
+            color: #b0b0b0;
+            font-size: 0.95rem;
+        }
+
+        .footer-text a {
+            color: #ff3366;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .footer-text a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #ff3366;
+            transition: width 0.3s ease;
+        }
+
+        .footer-text a:hover::after {
+            width: 100%;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-content h1 {
+                font-size: 4rem;
+            }
+            
+            .hero-content h1 span {
+                font-size: 5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .envelope-front {
+                padding: 3rem 1.5rem;
+            }
+
+            .envelope-front h2 {
+                font-size: 2rem;
+            }
+
+            .envelope-seal {
+                width: 80px;
+                height: 80px;
+                font-size: 2.5rem;
+            }
+
+            .letter-card {
+                padding: 2rem;
+            }
+
+            .letter-greeting {
+                font-size: 2rem;
+            }
+
+            .letter-body {
+                font-size: 1rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .letter-container {
+                padding: 2rem;
+            }
+
+            .letter-content {
+                font-size: 1rem;
+            }
+
+            .timeline-container {
+                grid-template-columns: 1fr;
+            }
+
+            .reasons-grid {
+                grid-template-columns: 1fr;
+                padding: 0 1rem;
+            }
+            
+            .reason-card {
+                padding: 1.5rem;
+            }
+            
+            .reason-icon {
+                width: 60px;
+                height: 60px;
+                line-height: 60px;
+                font-size: 2rem;
+            }
+
+            .question-text {
+                font-size: 1.5rem;
+            }
+
+            .yes-button {
+                padding: 1rem 2.5rem;
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .letter-greeting {
+                font-size: 1.8rem;
+            }
+
+            .envelope-seal {
+                width: 60px;
+                height: 60px;
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="heart-bg" id="heartBg"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">Untuk Kamu</div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#story">Cerita Kita</a>
+            <a href="#letter">Surat Cinta</a>
+            <a href="#reasons">Alasanku</a>
+            <a href="#surprise">Kejutan</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section - Sampul Surat -->
+    <section id="home" class="hero">
+        <div class="envelope" onclick="openLetter()">
+            <div class="envelope-front">
+                <div class="envelope-seal">❤️</div>
+                <h2>Surat untukmu</h2>
+                <p>Ada sesuatu yang ingin aku sampaikan...</p>
+                <div class="open-text">Buka yaa</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Surat yang muncul setelah diklik -->
+    <div id="letterOverlay" class="letter-content-overlay">
+        <div class="letter-card">
+            <div class="close-button" onclick="closeLetter()">✕</div>
+            <div class="letter-date">Valentine's Day • 2026</div>
+            <h2 class="letter-greeting">Untuk Cinta di Hati,</h2>
+            <div class="letter-body">
+                <p>Sayangku,</p>
+                <p>Aku bener-bener kehabisan kata setelah baca long text dari kamu. hatiku penuh banget, sampe rasanya mau meledak. makasih ya, udah nulis semua ini buat aku. kamu ngga tau betapa berharganya kata-kata kamu buat aku 🥹❤️</p>
+                <p>Aku ngerasa jadi orang paling beruntung di dunia karena dicintai seindah ini sama kamu. cara kamu sayang, cara kamu ngertiin aku, cara kamu hadir di hidup aku… itu semua nggak pernah aku anggap sepele. kamu juga bukan cuma pasangan buat aku, tapi rumah, tempat paling aman, dan orang yang selalu aku pilih setiap hari.</p>
+                <p>happy valentine’s day, cintaku. selama kamu mau jalan bareng aku, aku akan selalu ada. i love you, always and endlessly 🤍🌹</p>
+                <p>Yuk lanjut scroll, ada cerita kita, ada alasan kenapa aku sayang kamu, ada kejutan kecil, dan yang pasti... ada cinta aku yang gak pernah berkurang.</p>
+            </div>
+            <div class="letter-signature">
+                From your BF
+            </div>
+        </div>
+    </div>
+
+    <!-- Timeline Section - 4 Moments -->
+    <section id="story" class="timeline">
+        <div class="section-title">
+            <h2>Cerita <span>Kita</span></h2>
+            <p>4 momen yang gak akan pernah aku lupain</p>
+        </div>
+        <div class="timeline-container">
+            <div class="timeline-card">
+                <div class="card-image">
+                    <img src="https://i.imgur.com/nipDbkh.jpeg" alt="First Date">
+                </div>
+                <div class="card-content">
+                    <div class="card-date">7 Nov 2025</div>
+                    <h3>First Date</h3>
+                    <p>Hari pertama kita bertemu, langsung tau kalo kamu tuh spesial. Masih inget ga pas aku masih gugup banget? hahaha. Btw ini first time aku lohh.</p>
+                </div>
+            </div>
+            <div class="timeline-card">
+                <div class="card-image">
+                    <img src="https://i.imgur.com/JF0sI9V.jpeg" alt="Together">
+                </div>
+                <div class="card-content">
+                    <div class="card-date">11 Des 2025</div>
+                    <h3>Second Date</h3>
+                    <p>Hari di mana kita ketemu kedua kalinya. Saat itu aku seneng banget bisa ketemu kamu. Btw pas itu jujur kamu cantik banget, aku suka outfit kamu.</p>
+                </div>
+            </div>
+            <div class="timeline-card">
+                <div class="card-image">
+                    <img src="https://i.imgur.com/xX13u47.jpeg" alt="Memories">
+                </div>
+                <div class="card-content">
+                    <div class="card-date">14 Jan 2026</div>
+                    <h3>Ke blok M</h3>
+                    <p>Third date kamu ngajak ke blok m. walaupun kita ketemu cuma sebentar, tapi itu sangat berharga buat aku. Umm... inget gaa yang di photobooth? hahaha. Pake foto ini aja ya soalnya disini kamu cantik.</p>
+                </div>
+            </div>
+            <div class="timeline-card">
+                <div class="card-image">
+                    <img src="https://i.imgur.com/2cg9moU.jpeg" alt="Now">
+                </div>
+                <div class="card-content">
+                    <div class="card-date">14 Feb 2026</div>
+                    <h3>Sekarang</h3>
+                    <p>Kita ga punya foto bersama sekarang, tapi gatau kenapa moment yang plaing aku suka itu pas ke blok m, kita ujan ujanan bareng buru buru cari tempat. Makasih udah jadi partner in crime terbaik! Dan ini masih awal dari perjalanan kita.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Love Letter Section -->
+    <section id="letter" class="love-letter">
+        <div class="letter-container">
+            <div class="letter-header">
+                <h3>Surat Cinta untuk Kamu</h3>
+            </div>
+            <div class="letter-content">
+                <p>Sayangku,</p>
+                <p>Gak kerasa ya kita udah sejauh ini. Masih inget gak pertama kali kita ketemu? Aku masih inget jelas semuanya.</p>
+                <p>Kamu tuh berkah terbesar dalam hidup aku. Di saat aku ngerasa kesepian, kamu selalu ada buat aku. Di saat aku senang, kamu jadi orang pertama yang pengen aku kasih tau. Setiap hari kalo bisa, kamu tuh selalu ada hal baru yang bikin aku makin jatuh cinta.</p>
+                <p>Makasih ya udah sabar sama aku. Makasih udah mau terima aku apa adanya. Makasih buat semua tawa, canda, bahkan air mata yang kita lewatin bersama. Itu semua bikin hubungan kita makin kuat.</p>
+                <p>Yang pasti, setiap hari aku bersyukur punya kamu. kamu juga bukan cuma pacar, tapi juga sahabat terbaik, tempat curhat, dan rumah buat aku.</p>
+                <p>I love you more than words can say. Happy Valentine's Day, sayang.</p>
+            </div>
+            <div class="letter-signature">
+                Dari kesayanganmu
+            </div>
+        </div>
+    </section>
+
+    <!-- Love Meter -->
+    <section class="love-meter">
+        <div class="section-title">
+            <h2>Love <span>Meter</span></h2>
+            <p>Seberapa besar cinta aku ke kamu?</p>
+        </div>
+        <div class="meter-container">
+            <div class="meter-bar">
+                <div class="meter-fill"></div>
+            </div>
+            <div class="meter-text">
+                <span>INFINITY</span> % LOVE
+            </div>
+            <p>Gak terbatas, gak akan pernah habis ❤️</p>
+        </div>
+    </section>
+
+    <!-- Reasons Section -->
+    <section id="reasons" class="reasons">
+        <div class="section-title">
+            <h2>Alasan Kenapa <span>Aku Cinta Kamu</span></h2>
+            <p>Gak cukup seratus, gak cukup seribu, tapi ini sebagian kecilnya</p>
+        </div>
+        <div class="reasons-grid">
+            <div class="reason-card">
+                <div class="reason-icon">✨</div>
+                <h3>Cara Kamu Tersenyum</h3>
+                <p>Senyum kamu tuh bisa bikin hari terburuk aku jadi langsung cerah, secantik itu soalnya, hehe.</p>
+            </div>
+            <div class="reason-card">
+                <div class="reason-icon">💭</div>
+                <h3>Kamu Selalu Ada</h3>
+                <p>Di saat aku butuh tempat curhat, kamu selalu jadi pendengar terbaik tanpa judging.</p>
+            </div>
+            <div class="reason-card">
+                <div class="reason-icon">🌟</div>
+                <h3>Kamu Tulus</h3>
+                <p>Ketulusan kamu itu langka, dan aku bersyukur banget nemuin kamu di dunia ini.</p>
+            </div>
+            <div class="reason-card">
+                <div class="reason-icon">🤗</div>
+                <h3>Pelukan Kamu</h3>
+                <p>Rasanya kaya rumah, tempat aku pulang dan merasa aman dari semuanya.</p>
+            </div>
+            <div class="reason-card">
+                <div class="reason-icon">🎵</div>
+                <h3>Suara Kamu</h3>
+                <p>Ngomong apa aja selalu bikin aku betah dengerin, bahkan pas kamu lagi ngomel.</p>
+            </div>
+            <div class="reason-card">
+                <div class="reason-icon">💕</div>
+                <h3>Cara Kamu Sayang</h3>
+                <p>Cara kamu nunjukin sayang itu unik, dan aku suka semuanya dari cara kamu.</p>
+            </div>
+            <div class="reason-card">
+                <div class="reason-icon">👀</div>
+                <h3>Tatapan Mata Kamu</h3>
+                <p>Mata kamu punya cara sendiri buat bikin aku baper dan lupa sama semuanya.</p>
+            </div>
+            <div class="reason-card">
+                <div class="reason-icon">🌧️</div>
+                <h3>Kamu Tetap Cantik</h3>
+                <p>Bahkan pas kamu lagi bad mood, rambut berantakan, kamu tetap jadi orang tercantik.</p>
+            </div>
+            <div class="reason-card">
+                <div class="reason-icon">🤝</div>
+                <h3>Kamu Sahabat Aku</h3>
+                <p>Pacaran sama kamu tuh kaya punya pacar sekaligus sahabat terbaik sedunia.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Surprise Section - dengan Tombol Yes dan Lagu -->
+    <section id="surprise" class="surprise">
+        <div class="surprise-box">
+            <h3>Umm...</h3>
+            <div class="question-text">Mau jadi Valentine aku selamanya?</div>
+            <button class="yes-button" onclick="playMusic()">Yes! ❤️</button>
+            
+            <!-- Music Player (Hidden Awal) -->
+            <div id="musicPlayer" class="music-player">
+                <h4>Lagu Spesial Buat Kamu</h4>
+                <p>Semoga suka ya sayang ❤️</p>
+<audio id="loveSong" controls>
+    <source src="LaguBucin.mp3" type="audio/mpeg">
+    Browser lo gak support audio player.
+</audio>
+
+                <p style="margin-top: 1rem; font-size: 0.9rem;">I love you infinity! ❤️</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-heart">❤️</div>
+        <div class="footer-text">
+            <p>Made with sepenuh hati buat cewek paling spesial</p>
+            <p>I love you more than <a href="#">yesterday</a> but less than <a href="#">tomorrow</a></p>
+            <p style="margin-top: 1rem;">© 2025 • Untuk Kamu • Selamanya</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Animated Background
+        function createHeart() {
+            const heartBg = document.getElementById('heartBg');
+            const heart = document.createElement('span');
+            const size = Math.random() * 50 + 20;
+            
+            heart.style.width = size + 'px';
+            heart.style.height = size + 'px';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = Math.random() * 10 + 10 + 's';
+            heart.style.opacity = Math.random() * 0.3;
+            
+            heartBg.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 20000);
+        }
+
+        setInterval(createHeart, 1000);
+
+        // Buka Surat
+        function openLetter() {
+            document.getElementById('letterOverlay').classList.add('show');
+            document.querySelector('.letter-card').classList.add('show');
+        }
+
+        // Tutup Surat
+        function closeLetter() {
+            document.getElementById('letterOverlay').classList.remove('show');
+            document.querySelector('.letter-card').classList.remove('show');
+        }
+
+        // Play Music dan Tampilkan Player
+        function playMusic() {
+            const musicPlayer = document.getElementById('musicPlayer');
+            const audio = document.getElementById('loveSong');
+            
+            musicPlayer.classList.add('show');
+            audio.play();
+            
+            // Create confetti effect
+            for(let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    createHeart();
+                }, i * 50);
+            }
+        }
+
+        // Smooth scroll untuk navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if(window.scrollY > 100) {
+                navbar.style.background = 'rgba(10, 10, 10, 0.95)';
+                navbar.style.padding = '1rem 5%';
+            } else {
+                navbar.style.background = 'rgba(10, 10, 10, 0.8)';
+                navbar.style.padding = '1.5rem 5%';
+            }
+        });
+
+        // Close letter with ESC key
+        document.addEventListener('keydown', function(e) {
+            if(e.key === 'Escape') {
+                closeLetter();
+            }
+        });
+    </script>
+</body>
+</html>
